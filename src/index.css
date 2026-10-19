@@ -1,0 +1,417 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --accent: #f59e0b;
+  --dark: #0f172a;
+  --darker: #020617;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode (default) */
+body {
+  background: #020617;
+  color: #e2e8f0;
+}
+
+/* Light mode */
+html.light body {
+  background: #ffffff;
+  color: #1e293b;
+}
+
+/* Light mode backgrounds */
+html.light .bg-slate-50 { background-color: #f8fafc !important; }
+html.light .bg-slate-100 { background-color: #f1f5f9 !important; }
+html.light .bg-white { background-color: #ffffff !important; }
+
+/* Ensure proper text colors in both modes */
+/* Dark mode - white/light text */
+body {
+  color: #e2e8f0;
+}
+
+body h1, body h2, body h3, body h4, body h5, body h6 {
+  color: #ffffff;
+}
+
+body p, body span, body li, body label {
+  color: #e2e8f0;
+}
+
+body .text-gray-100 { color: #f3f4f6 !important; }
+body .text-gray-200 { color: #e5e7eb !important; }
+body .text-gray-300 { color: #d1d5db !important; }
+body .text-gray-400 { color: #9ca3af !important; }
+body .text-gray-500 { color: #6b7280 !important; }
+body .text-gray-600 { color: #4b5563 !important; }
+
+/* Light mode - dark text */
+html.light body {
+  color: #1e293b;
+}
+
+html.light body h1, 
+html.light body h2, 
+html.light body h3, 
+html.light body h4, 
+html.light body h5, 
+html.light body h6 {
+  color: #0f172a;
+}
+
+html.light body p, 
+html.light body span, 
+html.light body li, 
+html.light body label {
+  color: #334155;
+}
+
+html.light .text-gray-100 { color: #f1f5f9 !important; }
+html.light .text-gray-200 { color: #e2e8f0 !important; }
+html.light .text-gray-300 { color: #cbd5e1 !important; }
+html.light .text-gray-400 { color: #94a3b8 !important; }
+html.light .text-gray-500 { color: #64748b !important; }
+html.light .text-gray-600 { color: #475569 !important; }
+html.light .text-gray-700 { color: #334155 !important; }
+html.light .text-gray-800 { color: #1e293b !important; }
+html.light .text-gray-900 { color: #0f172a !important; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #818cf8;
+}
+
+html.light ::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #6366f1;
+}
+
+/* Glass morphism - Dark */
+.glass {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glass morphism - Light */
+html.light .glass {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+html.light .glass-light {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Light mode hover states */
+html.light .hover\:bg-gray-50:hover {
+  background-color: #f9fafb !important;
+}
+
+html.light .hover\:bg-gray-100:hover {
+  background-color: #f3f4f6 !important;
+}
+
+/* Light mode borders */
+html.light .border-gray-100 {
+  border-color: #f3f4f6 !important;
+}
+
+html.light .border-gray-200 {
+  border-color: #e5e7eb !important;
+}
+
+html.light .border-gray-300 {
+  border-color: #d1d5db !important;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #f59e0b, #ef4444, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated gradient border */
+.gradient-border {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899, #6366f1);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderRotate 4s linear infinite;
+}
+
+@keyframes borderRotate {
+  0% { background: linear-gradient(0deg, #6366f1, #a855f7, #ec4899, #6366f1); }
+  25% { background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899, #6366f1); }
+  50% { background: linear-gradient(180deg, #6366f1, #a855f7, #ec4899, #6366f1); }
+  75% { background: linear-gradient(270deg, #6366f1, #a855f7, #ec4899, #6366f1); }
+  100% { background: linear-gradient(360deg, #6366f1, #a855f7, #ec4899, #6366f1); }
+}
+
+/* Pulse animation */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.6); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Grid background - Dark */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Grid background - Light */
+html.light .grid-bg {
+  background-image: 
+    linear-gradient(rgba(99, 102, 241, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.08) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-color: #ffffff;
+}
+
+/* Light mode enhanced backgrounds */
+html.light .bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+/* Light mode card shadows */
+html.light .shadow-sm {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+html.light .shadow-md {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+html.light .shadow-lg {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+html.light .shadow-xl {
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Light mode text overrides - ensure dark text on light backgrounds */
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+html.light .text-gray-50 {
+  color: #f8fafc !important;
+}
+
+html.light .text-gray-100 {
+  color: #f1f5f9 !important;
+}
+
+html.light .text-gray-200 {
+  color: #e2e8f0 !important;
+}
+
+html.light .text-gray-300 {
+  color: #cbd5e1 !important;
+}
+
+html.light .text-gray-400 {
+  color: #94a3b8 !important;
+}
+
+html.light .text-gray-500 {
+  color: #64748b !important;
+}
+
+html.light .text-gray-600 {
+  color: #475569 !important;
+}
+
+html.light .text-gray-700 {
+  color: #334155 !important;
+}
+
+html.light .text-gray-800 {
+  color: #1e293b !important;
+}
+
+html.light .text-gray-900 {
+  color: #0f172a !important;
+}
+
+/* Ensure headings are dark in light mode */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6 {
+  color: #0f172a !important;
+}
+
+/* Ensure body text is dark in light mode */
+html.light p,
+html.light span,
+html.light li,
+html.light label,
+html.light a:not(.gradient-text) {
+  color: #334155 !important;
+}
+
+/* Keep gradient text visible in both modes */
+html.light .gradient-text,
+html.light .gradient-text-gold {
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Dark mode - ensure white text is truly white */
+body:not(.light) .text-white {
+  color: #ffffff !important;
+}
+
+body:not(.light) h1,
+body:not(.light) h2,
+body:not(.light) h3,
+body:not(.light) h4,
+body:not(.light) h5,
+body:not(.light) h6 {
+  color: #ffffff !important;
+}
+
+body:not(.light) .text-gray-100 { color: #f3f4f6 !important; }
+body:not(.light) .text-gray-200 { color: #e5e7eb !important; }
+body:not(.light) .text-gray-300 { color: #d1d5db !important; }
+body:not(.light) .text-gray-400 { color: #9ca3af !important; }
+body:not(.light) .text-gray-500 { color: #6b7280 !important; }
+body:not(.light) .text-gray-600 { color: #4b5563 !important; }
+
+/* Keep gradient text visible in dark mode */
+body:not(.light) .gradient-text,
+body:not(.light) .gradient-text-gold {
+  -webkit-text-fill-color: transparent !important;
+}
+
+html.light .bg-\[\/5\],
+html.light .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light .border-white\/5,
+html.light .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light .hover\:bg-white\/5:hover,
+html.light .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .flex {
+  direction: rtl;
+}
+
+/* Bottom bar spacing */
+.pb-14 {
+  padding-bottom: 3.5rem;
+}
+
+/* Light mode card styles */
+html.light .card-light {
+  background: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+html.light .card-light:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
