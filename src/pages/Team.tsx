@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { Github, Twitter, Linkedin, Mail, Code2, Palette, BarChart3 } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const teamMembers = [
   {
@@ -92,6 +94,9 @@ const departmentColors = {
 };
 
 export default function Team() {
+  const { isDark } = useTheme();
+  const { t } = useLanguage();
+
   return (
     <div className="pt-24 pb-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,12 +106,11 @@ export default function Team() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            Meet Our <span className="gradient-text">Team</span>
+          <h1 className={`text-4xl md:text-6xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+            {t('team.title').split(' ').slice(0, -1).join(' ')} <span className="gradient-text">{t('team.title').split(' ').pop()}</span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            A diverse group of experts united by passion. We collaborate across disciplines 
-            to deliver holistic solutions.
+          <p className={`text-lg max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+            {t('team.subtitle')}
           </p>
         </motion.div>
 
@@ -122,12 +126,12 @@ export default function Team() {
             { dept: 'Interior Design', count: 3, icon: Palette, color: 'from-purple-500 to-pink-500', desc: 'Creative minds shaping beautiful spaces' },
             { dept: 'Data Analytics', count: 3, icon: BarChart3, color: 'from-amber-500 to-orange-500', desc: 'Data experts driving insights' },
           ].map((d, i) => (
-            <div key={i} className="glass-light rounded-2xl p-6 text-center hover:bg-white/10 transition">
+            <div key={i} className={`rounded-2xl p-6 text-center transition ${isDark ? 'glass-light hover:bg-white/10' : 'bg-white border border-gray-100 shadow-sm hover:shadow-md'}`}>
               <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${d.color} flex items-center justify-center mx-auto mb-4`}>
                 <d.icon className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-1">{d.dept}</h3>
-              <p className="text-sm text-gray-400 mb-3">{d.desc}</p>
+              <h3 className={`text-lg font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{d.dept}</h3>
+              <p className={`text-sm mb-3 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{d.desc}</p>
               <span className="text-2xl font-bold gradient-text">{d.count} Experts</span>
             </div>
           ))}
@@ -146,7 +150,7 @@ export default function Team() {
                 transition={{ delay: i * 0.1 }}
                 className="group"
               >
-                <div className="glass-light rounded-2xl p-6 h-full hover:bg-white/10 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/10">
+                <div className={`rounded-2xl p-6 h-full transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/10 ${isDark ? 'glass-light hover:bg-white/10' : 'bg-white border border-gray-100 shadow-sm hover:shadow-lg'}`}>
                   {/* Avatar */}
                   <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${colors.bg} flex items-center justify-center text-4xl mb-4 group-hover:scale-110 transition-transform`}>
                     {member.avatar}
@@ -158,14 +162,14 @@ export default function Team() {
                       {member.department === 'developers' ? 'Dev' : member.department === 'interior' ? 'Design' : 'Data'}
                     </span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">{member.name}</h3>
+                  <h3 className={`text-lg font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{member.name}</h3>
                   <p className={`text-sm ${colors.text} mb-3`}>{member.role}</p>
-                  <p className="text-sm text-gray-400 mb-4">{member.bio}</p>
+                  <p className={`text-sm mb-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{member.bio}</p>
 
                   {/* Skills */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {member.skills.slice(0, 4).map((skill, j) => (
-                      <span key={j} className="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-300">
+                      <span key={j} className={`text-xs px-2 py-1 rounded-md ${isDark ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>
                         {skill}
                       </span>
                     ))}
@@ -197,27 +201,27 @@ export default function Team() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-20 glass rounded-3xl p-10 text-center relative overflow-hidden"
+          className={`mt-20 rounded-3xl p-10 text-center relative overflow-hidden ${isDark ? 'glass' : 'bg-white border border-gray-200 shadow-lg'}`}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5" />
+          <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-br from-indigo-500/5 to-purple-500/5' : 'bg-gradient-to-br from-indigo-50 to-purple-50'}`} />
           <div className="relative">
-            <h2 className="text-3xl font-bold text-white mb-4">Cross-Disciplinary Collaboration</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto mb-8">
+            <h2 className={`text-3xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Cross-Disciplinary Collaboration</h2>
+            <p className={`max-w-2xl mx-auto mb-8 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
               Our team doesn't work in silos. Developers collaborate with designers to build 
               beautiful interfaces, while data analysts ensure every decision is backed by insights.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <div className="flex items-center space-x-2 px-4 py-2 glass-light rounded-full">
+              <div className={`flex items-center space-x-2 px-4 py-2 rounded-full ${isDark ? 'glass-light' : 'bg-gray-100'}`}>
                 <Code2 className="w-4 h-4 text-blue-400" />
-                <span className="text-sm text-gray-300">Dev ↔ Design Sync</span>
+                <span className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Dev ↔ Design Sync</span>
               </div>
-              <div className="flex items-center space-x-2 px-4 py-2 glass-light rounded-full">
+              <div className={`flex items-center space-x-2 px-4 py-2 rounded-full ${isDark ? 'glass-light' : 'bg-gray-100'}`}>
                 <BarChart3 className="w-4 h-4 text-amber-400" />
-                <span className="text-sm text-gray-300">Data-Driven Design</span>
+                <span className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Data-Driven Design</span>
               </div>
-              <div className="flex items-center space-x-2 px-4 py-2 glass-light rounded-full">
+              <div className={`flex items-center space-x-2 px-4 py-2 rounded-full ${isDark ? 'glass-light' : 'bg-gray-100'}`}>
                 <Palette className="w-4 h-4 text-purple-400" />
-                <span className="text-sm text-gray-300">Design-Informed Dev</span>
+                <span className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Design-Informed Dev</span>
               </div>
             </div>
           </div>

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import {
   Building2, Users, FileText, Calendar, MessageSquare, CheckCircle,
   Clock, AlertCircle, ArrowRight, Briefcase, TrendingUp, Star, Shield
@@ -60,6 +62,8 @@ const messages = [
 
 export default function CompanyPortal() {
   const { isAuthenticated, user } = useAuth();
+  const { isDark } = useTheme();
+  const { t } = useLanguage();
   const [activeSection, setActiveSection] = useState('dashboard');
 
   if (!isAuthenticated) {
@@ -67,8 +71,8 @@ export default function CompanyPortal() {
       <div className="pt-24 pb-16 min-h-screen flex items-center justify-center">
         <div className="text-center max-w-md">
           <Building2 className="w-16 h-16 text-indigo-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-2">Company Portal</h2>
-          <p className="text-gray-400 mb-6">
+          <h2 className={`text-2xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>Company Portal</h2>
+          <p className={`mb-6 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
             Sign in with your company account to access projects, invoices, and team communications.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -93,12 +97,12 @@ export default function CompanyPortal() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-3xl font-bold text-white mb-1">Company Portal</h1>
-          <p className="text-gray-400">Manage your projects, team, and communications.</p>
+          <h1 className={`text-3xl font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>Company Portal</h1>
+          <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>Manage your projects, team, and communications.</p>
         </motion.div>
 
         {/* Navigation */}
-        <div className="flex space-x-1 mb-8 overflow-x-auto glass-light rounded-xl p-1">
+        <div className={`flex space-x-1 mb-8 overflow-x-auto rounded-xl p-1 ${isDark ? 'glass-light' : 'bg-gray-100'}`}>
           {[
             { id: 'dashboard', label: 'Dashboard', icon: Briefcase },
             { id: 'projects', label: 'Projects', icon: FileText },
@@ -111,7 +115,7 @@ export default function CompanyPortal() {
               className={`flex items-center space-x-2 px-5 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
                 activeSection === tab.id
                   ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+                  : isDark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-500 hover:text-gray-900 hover:bg-white'
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -136,13 +140,13 @@ export default function CompanyPortal() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="glass-light rounded-xl p-6"
+                  className={`rounded-xl p-6 ${isDark ? 'glass-light' : 'bg-white border border-gray-100 shadow-sm'}`}
                 >
                   <div className={`w-10 h-10 rounded-lg ${stat.bg} flex items-center justify-center mb-3`}>
                     <stat.icon className={`w-5 h-5 ${stat.color}`} />
                   </div>
-                  <div className="text-2xl font-bold text-white">{stat.value}</div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
+                  <div className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{stat.value}</div>
+                  <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{stat.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -150,8 +154,8 @@ export default function CompanyPortal() {
             {/* Quick Overview */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Recent Projects */}
-              <div className="glass-light rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">Project Progress</h3>
+              <div className={`rounded-xl p-6 ${isDark ? 'glass-light' : 'bg-white border border-gray-100 shadow-sm'}`}>
+                <h3 className={`text-lg font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Project Progress</h3>
                 <div className="space-y-4">
                   {projects.slice(0, 3).map((project) => (
                     <div key={project.id} className="space-y-2">
@@ -176,8 +180,8 @@ export default function CompanyPortal() {
               </div>
 
               {/* Recent Messages */}
-              <div className="glass-light rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-white mb-4">Recent Messages</h3>
+              <div className={`rounded-xl p-6 ${isDark ? 'glass-light' : 'bg-white border border-gray-100 shadow-sm'}`}>
+                <h3 className={`text-lg font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>Recent Messages</h3>
                 <div className="space-y-4">
                   {messages.map((msg, i) => (
                     <div key={i} className="flex items-start space-x-3">
@@ -210,13 +214,12 @@ export default function CompanyPortal() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="glass-light rounded-xl p-6 hover:bg-white/10 transition"
+                  className={`rounded-xl p-6 transition ${isDark ? 'glass-light hover:bg-white/10' : 'bg-white border border-gray-100 shadow-sm hover:shadow-md'}`}
                 >
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div className="flex-1">
+                      <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
-                        <h3 className="text-lg font-semibold text-white">{project.name}</h3>
-                        <span className={`text-xs px-2 py-1 rounded-full ${
+                        <h3 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{project.name}</h3>                        <span className={`text-xs px-2 py-1 rounded-full ${
                           project.status === 'In Progress' ? 'bg-blue-500/20 text-blue-400' :
                           project.status === 'Review' ? 'bg-amber-500/20 text-amber-400' :
                           'bg-gray-500/20 text-gray-400'
@@ -224,7 +227,7 @@ export default function CompanyPortal() {
                           {project.status}
                         </span>
                       </div>
-                      <div className="flex items-center space-x-4 text-sm text-gray-400">
+                      <div className={`flex items-center space-x-4 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                         <span className="flex items-center">
                           <Calendar className="w-4 h-4 mr-1" />
                           Due: {project.deadline}
@@ -237,8 +240,8 @@ export default function CompanyPortal() {
                     </div>
                     <div className="flex items-center space-x-4">
                       <div className="text-right">
-                        <div className="text-sm font-bold text-white">{project.progress}%</div>
-                        <div className="text-xs text-gray-500">Complete</div>
+                        <div className={`text-sm font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{project.progress}%</div>
+                        <div className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Complete</div>
                       </div>
                       <div className="w-32">
                         <div className="h-2 bg-white/5 rounded-full overflow-hidden">
@@ -262,25 +265,25 @@ export default function CompanyPortal() {
         {/* Invoices Section */}
         {activeSection === 'invoices' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <div className="glass-light rounded-xl overflow-hidden">
+            <div className={`rounded-xl overflow-hidden ${isDark ? 'glass-light' : 'bg-white border border-gray-100 shadow-sm'}`}>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-white/5">
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-400">Invoice</th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-400">Date</th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-400">Project</th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-400">Amount</th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-400">Status</th>
+                    <tr className={`border-b ${isDark ? 'border-white/5' : 'border-gray-100'}`}>
+                      <th className={`text-left py-4 px-6 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Invoice</th>
+                      <th className={`text-left py-4 px-6 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Date</th>
+                      <th className={`text-left py-4 px-6 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Project</th>
+                      <th className={`text-left py-4 px-6 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Amount</th>
+                      <th className={`text-left py-4 px-6 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {invoices.map((inv) => (
-                      <tr key={inv.id} className="border-b border-white/5 hover:bg-white/5 transition">
-                        <td className="py-4 px-6 text-sm font-medium text-white">{inv.id}</td>
-                        <td className="py-4 px-6 text-sm text-gray-400">{inv.date}</td>
-                        <td className="py-4 px-6 text-sm text-gray-300">{inv.project}</td>
-                        <td className="py-4 px-6 text-sm font-medium text-white">{inv.amount}</td>
+                      <tr key={inv.id} className={`border-b transition ${isDark ? 'border-white/5 hover:bg-white/5' : 'border-gray-50 hover:bg-gray-50'}`}>
+                        <td className={`py-4 px-6 text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>{inv.id}</td>
+                        <td className={`py-4 px-6 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{inv.date}</td>
+                        <td className={`py-4 px-6 text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{inv.project}</td>
+                        <td className={`py-4 px-6 text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>{inv.amount}</td>
                         <td className="py-4 px-6">
                           <span className={`flex items-center text-sm ${
                             inv.status === 'Paid' ? 'text-green-400' :
@@ -304,7 +307,7 @@ export default function CompanyPortal() {
         {/* Messages Section */}
         {activeSection === 'messages' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <div className="glass-light rounded-xl p-6">
+            <div className={`rounded-xl p-6 ${isDark ? 'glass-light' : 'bg-white border border-gray-100 shadow-sm'}`}>
               <div className="space-y-4">
                 {messages.map((msg, i) => (
                   <motion.div
@@ -313,7 +316,9 @@ export default function CompanyPortal() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
                     className={`flex items-start space-x-4 p-4 rounded-xl transition ${
-                      msg.unread ? 'bg-indigo-500/5 border border-indigo-500/10' : 'hover:bg-white/5'
+                      msg.unread 
+                        ? isDark ? 'bg-indigo-500/5 border border-indigo-500/10' : 'bg-indigo-50 border border-indigo-100'
+                        : isDark ? 'hover:bg-white/5' : 'hover:bg-gray-50'
                     }`}
                   >
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-lg text-white font-bold flex-shrink-0">
@@ -321,10 +326,10 @@ export default function CompanyPortal() {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
-                        <span className="font-semibold text-white">{msg.from}</span>
-                        <span className="text-xs text-gray-500">{msg.time}</span>
+                        <span className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{msg.from}</span>
+                        <span className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{msg.time}</span>
                       </div>
-                      <p className="text-sm text-gray-300">{msg.message}</p>
+                      <p className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>{msg.message}</p>
                     </div>
                     {msg.unread && (
                       <span className="w-3 h-3 rounded-full bg-indigo-400 flex-shrink-0 mt-2" />
@@ -334,12 +339,14 @@ export default function CompanyPortal() {
               </div>
 
               {/* Compose */}
-              <div className="mt-6 pt-6 border-t border-white/5">
+              <div className={`mt-6 pt-6 border-t ${isDark ? 'border-white/5' : 'border-gray-200'}`}>
                 <div className="flex space-x-3">
                   <input
                     type="text"
                     placeholder="Type a message to your team..."
-                    className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition"
+                    className={`flex-1 px-4 py-3 rounded-xl focus:outline-none focus:border-indigo-500 transition ${
+                      isDark ? 'bg-white/5 border border-white/10 text-white placeholder-gray-500' : 'bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400'
+                    }`}
                   />
                   <button className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl text-white font-medium hover:shadow-lg hover:shadow-indigo-500/25 transition flex items-center space-x-2">
                     <span>Send</span>
@@ -356,12 +363,12 @@ export default function CompanyPortal() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="mt-8 glass rounded-xl p-6 flex items-center space-x-4"
+          className={`mt-8 rounded-xl p-6 flex items-center space-x-4 ${isDark ? 'glass' : 'bg-white border border-gray-200 shadow-sm'}`}
         >
           <Shield className="w-10 h-10 text-green-400 flex-shrink-0" />
           <div>
-            <h4 className="text-white font-semibold">Enterprise Security</h4>
-            <p className="text-sm text-gray-400">
+            <h4 className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Enterprise Security</h4>
+            <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
               Your data is protected with end-to-end encryption, SOC 2 compliance, and regular security audits.
             </p>
           </div>

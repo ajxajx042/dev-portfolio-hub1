@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Code2, Palette, BarChart3, ExternalLink, Github, Eye, Filter } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const categories = [
-  { id: 'all', name: 'All Projects', icon: Eye },
-  { id: 'developers', name: 'Development', icon: Code2 },
-  { id: 'interior', name: 'Interior Design', icon: Palette },
-  { id: 'data', name: 'Data Analytics', icon: BarChart3 },
+  { id: 'all', nameKey: 'portfolio.all', icon: Eye },
+  { id: 'developers', nameKey: 'portfolio.development', icon: Code2 },
+  { id: 'interior', nameKey: 'portfolio.interior', icon: Palette },
+  { id: 'data', nameKey: 'portfolio.data', icon: BarChart3 },
 ];
 
 const projects = [
@@ -140,6 +142,8 @@ export default function Portfolio() {
   const { category } = useParams();
   const [activeCategory, setActiveCategory] = useState(category || 'all');
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const { isDark } = useTheme();
+  const { t } = useLanguage();
 
   const filteredProjects = activeCategory === 'all'
     ? projects
@@ -154,11 +158,11 @@ export default function Portfolio() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            Our <span className="gradient-text">Portfolio</span>
+          <h1 className={`text-4xl md:text-6xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+            {t('portfolio.title').split(' ')[0]} <span className="gradient-text">{t('portfolio.title').split(' ').slice(1).join(' ')}</span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Explore our diverse range of projects across development, design, and data analytics.
+          <p className={`text-lg max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+            {t('portfolio.subtitle')}
           </p>
         </motion.div>
 
@@ -176,11 +180,11 @@ export default function Portfolio() {
               className={`flex items-center space-x-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                 activeCategory === cat.id
                   ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25'
-                  : 'glass-light text-gray-300 hover:text-white hover:bg-white/10'
+                  : isDark ? 'glass-light text-gray-300 hover:text-white hover:bg-white/10' : 'bg-gray-100 text-gray-600 hover:text-gray-900 hover:bg-gray-200'
               }`}
             >
               <cat.icon className="w-4 h-4" />
-              <span>{cat.name}</span>
+              <span>{t(cat.nameKey)}</span>
             </button>
           ))}
         </motion.div>
@@ -200,7 +204,7 @@ export default function Portfolio() {
                 onMouseLeave={() => setHoveredProject(null)}
                 className="group"
               >
-                <div className="glass-light rounded-2xl overflow-hidden hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10">
+                <div className={`rounded-2xl overflow-hidden hover:-translate-y-2 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10 ${isDark ? 'glass-light' : 'bg-white border border-gray-100 shadow-sm'}`}>
                   {/* Project Image Area */}
                   <div className={`relative h-48 bg-gradient-to-br ${project.gradient} flex items-center justify-center`}>
                     <span className="text-6xl">{project.image}</span>
@@ -231,31 +235,31 @@ export default function Portfolio() {
                          project.category === 'interior' ? 'Interior Design' : 'Data Analytics'}
                       </span>
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-indigo-400 transition">
+                    <h3 className={`text-lg font-bold mb-2 group-hover:text-indigo-400 transition ${isDark ? 'text-white' : 'text-gray-900'}`}>
                       {project.title}
                     </h3>
-                    <p className="text-sm text-gray-400 mb-4 line-clamp-2">{project.description}</p>
+                    <p className={`text-sm mb-4 line-clamp-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{project.description}</p>
                     
                     {/* Tech Stack */}
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.slice(0, 3).map((t, i) => (
-                        <span key={i} className="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-300">
-                          {t}
+                      {project.tech.slice(0, 3).map((tech, i) => (
+                        <span key={i} className={`text-xs px-2 py-1 rounded-md ${isDark ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>
+                          {tech}
                         </span>
                       ))}
                       {project.tech.length > 3 && (
-                        <span className="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400">
+                        <span className={`text-xs px-2 py-1 rounded-md ${isDark ? 'bg-white/5 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>
                           +{project.tech.length - 3}
                         </span>
                       )}
                     </div>
 
                     {/* Stats */}
-                    <div className="flex justify-between pt-4 border-t border-white/5">
+                    <div className={`flex justify-between pt-4 border-t ${isDark ? 'border-white/5' : 'border-gray-100'}`}>
                       {Object.entries(project.stats).map(([key, value], i) => (
                         <div key={i} className="text-center">
-                          <div className="text-sm font-bold text-white">{value}</div>
-                          <div className="text-xs text-gray-500 capitalize">{key}</div>
+                          <div className={`text-sm font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{value}</div>
+                          <div className={`text-xs capitalize ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>{key}</div>
                         </div>
                       ))}
                     </div>
@@ -269,8 +273,8 @@ export default function Portfolio() {
         {/* Empty state */}
         {filteredProjects.length === 0 && (
           <div className="text-center py-20">
-            <Filter className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <p className="text-gray-400 text-lg">No projects found in this category.</p>
+            <Filter className={`w-16 h-16 mx-auto mb-4 ${isDark ? 'text-gray-600' : 'text-gray-300'}`} />
+            <p className={`text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>No projects found in this category.</p>
           </div>
         )}
       </div>

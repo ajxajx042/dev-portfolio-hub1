@@ -20,9 +20,20 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--darker);
-  color: #e2e8f0;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode (default) */
+body {
+  background: #020617;
+  color: #e2e8f0;
+}
+
+/* Light mode */
+html.light body {
+  background: #f8fafc;
+  color: #1e293b;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -47,7 +58,15 @@ h1, h2, h3, h4, h5, h6 {
   background: #818cf8;
 }
 
-/* Glass morphism */
+html.light ::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #6366f1;
+}
+
+/* Glass morphism - Dark */
 .glass {
   background: rgba(15, 23, 42, 0.7);
   backdrop-filter: blur(20px);
@@ -58,6 +77,21 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glass morphism - Light */
+html.light .glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+html.light .glass-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.03);
 }
 
 /* Gradient text */
@@ -123,7 +157,7 @@ h1, h2, h3, h4, h5, h6 {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Grid background */
+/* Grid background - Dark */
 .grid-bg {
   background-image: 
     linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
@@ -131,13 +165,71 @@ h1, h2, h3, h4, h5, h6 {
   background-size: 50px 50px;
 }
 
-/* Noise texture overlay */
-.noise-overlay::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  opacity: 0.02;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
+/* Grid background - Light */
+html.light .grid-bg {
+  background-image: 
+    linear-gradient(rgba(99, 102, 241, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Light mode text overrides */
+html.light .text-white {
+  color: #1e293b !important;
+}
+
+html.light .text-gray-300 {
+  color: #475569 !important;
+}
+
+html.light .text-gray-400 {
+  color: #64748b !important;
+}
+
+html.light .text-gray-500 {
+  color: #94a3b8 !important;
+}
+
+html.light .bg-\[\/5\],
+html.light .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+html.light .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light .border-white\/5,
+html.light .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light .hover\:bg-white\/5:hover,
+html.light .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .flex {
+  direction: rtl;
+}
+
+/* Bottom bar spacing */
+.pb-14 {
+  padding-bottom: 3.5rem;
+}
+
+/* Light mode card styles */
+html.light .card-light {
+  background: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+html.light .card-light:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
