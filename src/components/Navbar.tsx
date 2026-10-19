@@ -87,12 +87,28 @@ export default function Navbar() {
                         isDark ? 'glass' : 'bg-white border border-gray-200'
                       }`}
                     >
+                      {user?.role === 'admin' && (
+                        <Link
+                          to="/admin"
+                          onClick={() => { setShowDropdown(false); handleNavClick('/admin'); }}
+                          className={`block px-4 py-2 text-sm ${isDark ? 'text-gray-300 hover:bg-white/5 hover:text-white' : 'text-gray-700 hover:bg-gray-50'}`}
+                        >
+                          {t('nav.dashboard')}
+                        </Link>
+                      )}
                       <Link
-                        to="/admin"
-                        onClick={() => { setShowDropdown(false); handleNavClick('/admin'); }}
+                        to="/profile"
+                        onClick={() => { setShowDropdown(false); }}
                         className={`block px-4 py-2 text-sm ${isDark ? 'text-gray-300 hover:bg-white/5 hover:text-white' : 'text-gray-700 hover:bg-gray-50'}`}
                       >
-                        {t('nav.dashboard')}
+                        Profile
+                      </Link>
+                      <Link
+                        to="/upload"
+                        onClick={() => { setShowDropdown(false); }}
+                        className={`block px-4 py-2 text-sm ${isDark ? 'text-gray-300 hover:bg-white/5 hover:text-white' : 'text-gray-700 hover:bg-gray-50'}`}
+                      >
+                        Upload Center
                       </Link>
                       <button
                         onClick={() => { 

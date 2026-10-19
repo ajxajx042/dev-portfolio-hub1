@@ -26,8 +26,13 @@ export default function AdminLayout() {
   const { isDark } = useTheme();
   const { addToast } = useToast();
 
-  // Check if user is admin
-  if (user && user.role !== 'admin') {
+  // Check if user is authenticated and is admin
+  if (!user) {
+    navigate('/admin/login');
+    return null;
+  }
+
+  if (user.role !== 'admin') {
     addToast({
       type: 'error',
       title: 'Access Denied',
