@@ -30,8 +30,8 @@ export default function FileUpload({
 }: FileUploadProps) {
   const { isDark } = useTheme();
   const [dragActive, setDragActive] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(currentFile || null);
+  const [fileName, setFileName] = useState<string | null>(currentFile ? currentFile.split('/').pop() || null : null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleDrag = (e: React.DragEvent) => {

@@ -6,7 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useToast } from '../components/ui/Toast';
 import { Button, Input, Card } from '../components/ui';
-import { Mail, Lock, Eye, EyeOff, Zap, ArrowRight, Shield, User, Building2 } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, Zap, ArrowRight, Shield } from 'lucide-react';
 import { loggingService } from '../services/LoggingService';
 import { securityService } from '../services/SecurityService';
 
@@ -14,7 +14,6 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [role, setRole] = useState<'viewer' | 'company' | 'admin'>('viewer');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { login } = useAuth();
@@ -78,12 +77,6 @@ export default function Login() {
     }
   };
 
-  const roleIcons = {
-    viewer: <User className="w-4 h-4" />,
-    company: <Building2 className="w-4 h-4" />,
-    admin: <Shield className="w-4 h-4" />,
-  };
-
   return (
     <div className="pt-16 min-h-screen flex items-center justify-center px-4 py-12">
       {/* Background effects */}
@@ -117,26 +110,6 @@ export default function Login() {
             <p className={`text-sm mt-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{t('login.subtitle')}</p>
           </motion.div>
 
-          {/* Role Selection */}
-          <div className="grid grid-cols-3 gap-2 mb-6">
-            {(['viewer', 'company', 'admin'] as const).map((r) => (
-              <motion.button
-                key={r}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setRole(r)}
-                className={`flex items-center justify-center space-x-2 py-3 rounded-xl text-sm font-medium transition-all ${
-                  role === r
-                    ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25'
-                    : isDark ? 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 border border-white/10' : 'bg-gray-100 text-gray-500 hover:text-gray-700 hover:bg-gray-200 border border-gray-200'
-                }`}
-              >
-                {roleIcons[r]}
-                <span className="capitalize">{r}</span>
-              </motion.button>
-            ))}
-          </div>
-
           {/* Error Alert */}
           {error && (
             <motion.div
@@ -163,7 +136,7 @@ export default function Login() {
               autoComplete="email"
             />
 
-            <div>
+            <div className="relative">
               <Input
                 type={showPassword ? 'text' : 'password'}
                 label={t('login.password')}
@@ -176,7 +149,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className={`absolute right-3 bottom-3 ${isDark ? 'text-gray-500 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'} transition-colors`}
+                className={`absolute right-3 top-[38px] ${isDark ? 'text-gray-500 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'} transition-colors`}
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
