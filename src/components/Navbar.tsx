@@ -20,8 +20,10 @@ export default function Navbar() {
     { name: t('nav.portfolio'), path: '/portfolio' },
     { name: t('nav.team'), path: '/team' },
     { name: t('nav.company'), path: '/company' },
-    { name: 'Upload', path: '/upload' },
-    { name: 'Profile', path: '/profile' },
+    ...(isAuthenticated ? [
+      { name: 'Upload', path: '/upload' },
+      { name: 'Profile', path: '/profile' },
+    ] : []),
   ];
 
   const isActive = (path: string) => location.pathname === path;

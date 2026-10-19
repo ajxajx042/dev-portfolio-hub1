@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import FileUpload from '../components/ui/FileUpload';
 import Card from '../components/ui/Card';
@@ -17,7 +19,21 @@ interface Project {
 
 export default function PortfolioManager() {
   const { isDark } = useTheme();
+  const { isAuthenticated } = useAuth();
   const { addToast } = useToast();
+  const navigate = useNavigate();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isAuthenticated) {
+      addToast({
+        type: 'warning',
+        title: 'Authentication Required',
+        message: 'Please sign in to manage your portfolio',
+      });
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate, addToast]);
   
   const [coverImage, setCoverImage] = useState<string | null>(null);
   const [isUploadingCover, setIsUploadingCover] = useState(false);

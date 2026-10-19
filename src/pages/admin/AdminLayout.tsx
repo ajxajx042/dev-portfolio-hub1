@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
@@ -20,11 +20,23 @@ import {
 
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { isDark } = useTheme();
   const { addToast } = useToast();
+
+  // Handle window resize for responsive sidebar
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
 
   // Check if user is authenticated and is admin
   if (!user) {
@@ -82,7 +94,7 @@ export default function AdminLayout() {
 
       {/* Sidebar */}
       <AnimatePresence>
-        {(sidebarOpen || typeof window !== 'undefined' && window.innerWidth >= 1024) && (
+        {(sidebarOpen || isDesktop) && (
           <motion.aside
             initial={{ x: -300 }}
             animate={{ x: 0 }}

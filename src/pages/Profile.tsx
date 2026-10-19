@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
@@ -7,12 +8,25 @@ import FileUpload from '../components/ui/FileUpload';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import { User, Mail, MapPin, Link as LinkIcon, Briefcase, Save, Camera } from 'lucide-react';
+import { User, Mail, MapPin, Link as LinkIcon, Briefcase, Save, Camera, LogIn } from 'lucide-react';
 
 export default function Profile() {
   const { isDark } = useTheme();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const { addToast } = useToast();
+  const navigate = useNavigate();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isAuthenticated) {
+      addToast({
+        type: 'warning',
+        title: 'Authentication Required',
+        message: 'Please sign in to access your profile',
+      });
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate, addToast]);
   
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);

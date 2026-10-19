@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import FileUpload from '../components/ui/FileUpload';
 import Card from '../components/ui/Card';
-import { Upload, Image, FileText, Video, Music, Folder, CheckCircle, X } from 'lucide-react';
+import { Upload, Image, FileText, Video, Music, Folder, CheckCircle, X, LogIn } from 'lucide-react';
 
 interface UploadedFile {
   id: string;
@@ -19,8 +20,21 @@ interface UploadedFile {
 
 export default function UploadCenter() {
   const { isDark } = useTheme();
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const { addToast } = useToast();
+  const navigate = useNavigate();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isAuthenticated) {
+      addToast({
+        type: 'warning',
+        title: 'Authentication Required',
+        message: 'Please sign in to upload files',
+      });
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate, addToast]);
   
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [uploadingFile, setUploadingFile] = useState<string | null>(null);

@@ -76,10 +76,14 @@ export default function CompanyPortal() {
             Sign in with your company account to access projects, invoices, and team communications.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link to="/login" className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl text-white font-semibold">
+            <Link to="/login" className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl text-white font-semibold hover:shadow-lg hover:shadow-indigo-500/25 transition">
               Sign In
             </Link>
-            <Link to="/register" className="px-6 py-3 glass-light rounded-xl text-white font-semibold hover:bg-white/10 transition">
+            <Link to="/register" className={`px-6 py-3 rounded-xl font-semibold transition ${
+              isDark 
+                ? 'glass-light text-white hover:bg-white/10' 
+                : 'bg-white border border-gray-200 text-gray-900 hover:bg-gray-50 shadow-sm'
+            }`}>
               Register Company
             </Link>
           </div>
