@@ -13,6 +13,9 @@ import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import CompanyPortal from './pages/CompanyPortal';
+import UploadCenter from './pages/UploadCenter';
+import Profile from './pages/Profile';
+import PortfolioManager from './pages/PortfolioManager';
 
 function App() {
   return (
@@ -23,17 +26,19 @@ function App() {
             <Router>
               <div className="min-h-screen grid-bg noise-overlay pb-20">
                 <Navbar />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/portfolio" element={<Portfolio />} />
-                  <Route path="/portfolio/:category" element={<Portfolio />} />
-                  <Route path="/team" element={<Team />} />
-                  <Route path="/admin" element={<AdminDashboard />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/company" element={<CompanyPortal />} />
-                </Routes>
-                <Footer />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/portfolio/:category" element={<Portfolio />} />
+                <Route path="/team" element={<Team />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/company" element={<CompanyPortal />} />
+                <Route path="/upload" element={<UploadCenter />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/portfolio-manager" element={<PortfolioManager />} />
+              </Routes>                <Footer />
                 <BottomBar />
               </div>
             </Router>
