@@ -59,19 +59,19 @@ export default function Register() {
       return;
     }
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    const success = register(cleanName, cleanEmail, password, role);
-    if (success) {
-      loggingService.logAuth(`New user registered: ${cleanEmail} (${role})`, undefined, true);
-      loggingService.logUserAction('New account created', { name: cleanName, email: cleanEmail, role });
+    try {
+      await register(cleanEmail, password, cleanName);
+      
+      loggingService.logAuth(`New user registered: ${cleanEmail}`, undefined, true);
+      loggingService.logUserAction('New account created', { name: cleanName, email: cleanEmail });
       securityService.recordSecurityEvent('login', 'low', `New account registered: ${cleanEmail}`);
-      securityService.createSession(cleanEmail);
+      
       navigate('/');
-    } else {
-      setError('Registration failed');
+    } catch (error: any) {
+      setError(error.message || 'Registration failed');
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

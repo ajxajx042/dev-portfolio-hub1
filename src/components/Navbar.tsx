@@ -65,7 +65,13 @@ export default function Navbar() {
                   onClick={() => setShowDropdown(!showDropdown)}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition ${isDark ? 'hover:bg-white/5' : 'hover:bg-gray-100'}`}
                 >
-                  <img src={user?.avatar} alt="" className="w-8 h-8 rounded-full" />
+                  {user?.avatar_url ? (
+                    <img src={user.avatar_url} alt="" className="w-8 h-8 rounded-full" />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm font-semibold">
+                      {user?.name?.charAt(0).toUpperCase()}
+                    </div>
+                  )}
                   <span className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{user?.name}</span>
                   <ChevronDown className={`w-4 h-4 ${isDark ? 'text-gray-400' : 'text-gray-500'}`} />
                 </button>

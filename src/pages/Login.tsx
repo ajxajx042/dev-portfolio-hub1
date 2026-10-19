@@ -50,21 +50,22 @@ export default function Login() {
       return;
     }
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    const success = login(cleanEmail, password, role);
-    if (success) {
+    try {
+      await login(cleanEmail, password);
+      
       // Log successful authentication
-      loggingService.logAuth(`User logged in as ${role}: ${cleanEmail}`, undefined, true);
-      securityService.recordSecurityEvent('login', 'low', `Successful login: ${cleanEmail} (${role})`);
-      securityService.createSession(cleanEmail);
-      navigate(role === 'admin' ? '/admin' : '/');
-    } else {
-      setError('Invalid credentials');
+      loggingService.logAuth(`User logged in: ${cleanEmail}`, undefined, true);
+      securityService.recordSecurityEvent('login', 'low', `Successful login: ${cleanEmail}`);
+      
+      // Navigate based on user role (will be determined after login)
+      navigate('/');
+    } catch (error: any) {
+      setError(error.message || 'Invalid credentials');
       loggingService.logAuth(`Failed login attempt: ${cleanEmail}`, undefined, false);
       securityService.recordSecurityEvent('failed_login', 'medium', `Failed login attempt: ${cleanEmail}`);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

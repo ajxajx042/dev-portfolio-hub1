@@ -1,57 +1,93 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { apiService } from '../services/ApiService';
 
 interface User {
   id: string;
-  name: string;
   email: string;
-  role: 'viewer' | 'company' | 'admin';
-  avatar?: string;
+  name: string;
+  role: 'user' | 'admin' | 'moderator';
+  avatar_url?: string;
+  bio?: string;
+  headline?: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string, role: 'viewer' | 'company' | 'admin') => boolean;
-  register: (name: string, email: string, password: string, role: 'viewer' | 'company' | 'admin') => boolean;
-  logout: () => void;
   isAuthenticated: boolean;
+  isLoading: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string, name: string) => Promise<void>;
+  logout: () => Promise<void>;
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const login = (email: string, _password: string, role: 'viewer' | 'company' | 'admin') => {
-    // Simulated login
-    const newUser: User = {
-      id: Math.random().toString(36).substr(2, 9),
-      name: email.split('@')[0],
-      email,
-      role,
-      avatar: `https://ui-avatars.com/api/?name=${email.split('@')[0]}&background=6366f1&color=fff`,
-    };
-    setUser(newUser);
-    return true;
+  useEffect(() => {
+    // Check if user is already logged in
+    const token = apiService.getToken();
+    if (token) {
+      refreshUser().catch(() => {
+        // Token is invalid, clear it
+        apiService.setToken(null);
+        setUser(null);
+      }).finally(() => {
+        setIsLoading(false);
+      });
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const refreshUser = async () => {
+    try {
+      const response = await apiService.getCurrentUser();
+      setUser(response.user);
+    } catch (error) {
+      setUser(null);
+      throw error;
+    }
   };
 
-  const register = (name: string, email: string, _password: string, role: 'viewer' | 'company' | 'admin') => {
-    const newUser: User = {
-      id: Math.random().toString(36).substr(2, 9),
-      name,
-      email,
-      role,
-      avatar: `https://ui-avatars.com/api/?name=${name}&background=6366f1&color=fff`,
-    };
-    setUser(newUser);
-    return true;
+  const login = async (email: string, password: string) => {
+    const response = await apiService.login(email, password);
+    apiService.setToken(response.token);
+    setUser(response.user);
   };
 
-  const logout = () => {
-    setUser(null);
+  const register = async (email: string, password: string, name: string) => {
+    const response = await apiService.register(email, password, name);
+    apiService.setToken(response.token);
+    setUser(response.user);
+  };
+
+  const logout = async () => {
+    try {
+      await apiService.logout();
+    } catch (error) {
+      // Ignore errors during logout
+    } finally {
+      apiService.setToken(null);
+      setUser(null);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        isLoading,
+        login,
+        register,
+        logout,
+        refreshUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
