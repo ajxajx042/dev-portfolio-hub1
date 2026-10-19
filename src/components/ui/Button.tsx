@@ -38,7 +38,7 @@ export default function Button({
     primary: 'bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl hover:shadow-indigo-500/25 focus:ring-indigo-500',
     secondary: isDark 
       ? 'bg-white/10 hover:bg-white/15 text-white border border-white/10 focus:ring-gray-500' 
-      : 'bg-gray-100 hover:bg-gray-200 text-gray-900 border border-gray-200 focus:ring-gray-500',
+      : 'bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 shadow-sm focus:ring-gray-500',
     outline: isDark 
       ? 'border-2 border-indigo-500 text-indigo-400 hover:bg-indigo-500/10 focus:ring-indigo-500' 
       : 'border-2 border-indigo-500 text-indigo-600 hover:bg-indigo-50 focus:ring-indigo-500',

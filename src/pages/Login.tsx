@@ -88,9 +88,9 @@ export default function Login() {
     <div className="pt-16 min-h-screen flex items-center justify-center px-4 py-12">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl ${isDark ? 'bg-indigo-500/10' : 'bg-indigo-500/5'}`} />
-        <div className={`absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl ${isDark ? 'bg-purple-500/10' : 'bg-purple-500/5'}`} />
-        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-3xl ${isDark ? 'bg-pink-500/5' : 'bg-pink-500/3'}`} />
+        <div className={`absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl ${isDark ? 'bg-indigo-500/10' : 'bg-indigo-100/40'}`} />
+        <div className={`absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl ${isDark ? 'bg-purple-500/10' : 'bg-purple-100/40'}`} />
+        <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-3xl ${isDark ? 'bg-pink-500/5' : 'bg-pink-100/30'}`} />
       </div>
 
       <motion.div 

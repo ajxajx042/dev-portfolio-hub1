@@ -30,7 +30,7 @@ export default function Card({
     rounded-2xl transition-all duration-300
     ${isDark 
       ? 'bg-white/5 border border-white/10 backdrop-blur-sm' 
-      : 'bg-white border border-gray-200 shadow-sm'
+      : 'bg-white border border-gray-200 shadow-sm hover:shadow-md'
     }
     ${paddings[padding]}
     ${className}

@@ -65,9 +65,9 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Animated background */}
         <div className="absolute inset-0">
-          <div className={`absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-3xl animate-pulse ${isDark ? 'bg-indigo-500/20' : 'bg-indigo-500/10'}`} />
-          <div className={`absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full blur-3xl animate-pulse ${isDark ? 'bg-purple-500/20' : 'bg-purple-500/10'}`} style={{ animationDelay: '1s' }} />
-          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-3xl animate-pulse ${isDark ? 'bg-pink-500/10' : 'bg-pink-500/5'}`} style={{ animationDelay: '2s' }} />
+          <div className={`absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-3xl animate-pulse ${isDark ? 'bg-indigo-500/20' : 'bg-indigo-100/50'}`} />
+          <div className={`absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full blur-3xl animate-pulse ${isDark ? 'bg-purple-500/20' : 'bg-purple-100/50'}`} style={{ animationDelay: '1s' }} />
+          <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full blur-3xl animate-pulse ${isDark ? 'bg-pink-500/10' : 'bg-pink-100/30'}`} style={{ animationDelay: '2s' }} />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

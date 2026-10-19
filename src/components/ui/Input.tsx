@@ -42,7 +42,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                   : 'border-red-300 bg-red-50 text-gray-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500/20'
                 : isDark
                   ? 'border-white/10 bg-white/5 text-white placeholder-gray-500 focus:border-indigo-500 focus:ring-indigo-500/20 hover:border-white/20'
-                  : 'border-gray-200 bg-white text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500/20 hover:border-gray-300'
+                  : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500/20 hover:border-gray-400'
               }
               ${className}
             `}

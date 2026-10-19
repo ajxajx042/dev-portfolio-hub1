@@ -90,8 +90,8 @@ export default function Register() {
     <div className="pt-16 min-h-screen flex items-center justify-center px-4 py-12">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl ${isDark ? 'bg-purple-500/10' : 'bg-purple-500/5'}`} />
-        <div className={`absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl ${isDark ? 'bg-indigo-500/10' : 'bg-indigo-500/5'}`} />
+        <div className={`absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full blur-3xl ${isDark ? 'bg-purple-500/10' : 'bg-purple-100/40'}`} />
+        <div className={`absolute bottom-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl ${isDark ? 'bg-indigo-500/10' : 'bg-indigo-100/40'}`} />
       </div>
 
       <motion.div 
