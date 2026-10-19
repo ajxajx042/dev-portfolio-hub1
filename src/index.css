@@ -36,6 +36,58 @@ html.light body {
   color: #1e293b;
 }
 
+/* Ensure proper text colors in both modes */
+/* Dark mode - white/light text */
+body {
+  color: #e2e8f0;
+}
+
+body h1, body h2, body h3, body h4, body h5, body h6 {
+  color: #ffffff;
+}
+
+body p, body span, body li, body label {
+  color: #e2e8f0;
+}
+
+body .text-gray-100 { color: #f3f4f6 !important; }
+body .text-gray-200 { color: #e5e7eb !important; }
+body .text-gray-300 { color: #d1d5db !important; }
+body .text-gray-400 { color: #9ca3af !important; }
+body .text-gray-500 { color: #6b7280 !important; }
+body .text-gray-600 { color: #4b5563 !important; }
+
+/* Light mode - dark text */
+html.light body {
+  color: #1e293b;
+}
+
+html.light body h1, 
+html.light body h2, 
+html.light body h3, 
+html.light body h4, 
+html.light body h5, 
+html.light body h6 {
+  color: #0f172a;
+}
+
+html.light body p, 
+html.light body span, 
+html.light body li, 
+html.light body label {
+  color: #334155;
+}
+
+html.light .text-gray-100 { color: #f1f5f9 !important; }
+html.light .text-gray-200 { color: #e2e8f0 !important; }
+html.light .text-gray-300 { color: #cbd5e1 !important; }
+html.light .text-gray-400 { color: #94a3b8 !important; }
+html.light .text-gray-500 { color: #64748b !important; }
+html.light .text-gray-600 { color: #475569 !important; }
+html.light .text-gray-700 { color: #334155 !important; }
+html.light .text-gray-800 { color: #1e293b !important; }
+html.light .text-gray-900 { color: #0f172a !important; }
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Space Grotesk', sans-serif;
 }
@@ -173,21 +225,101 @@ html.light .grid-bg {
   background-size: 50px 50px;
 }
 
-/* Light mode text overrides */
+/* Light mode text overrides - ensure dark text on light backgrounds */
 html.light .text-white {
-  color: #1e293b !important;
+  color: #0f172a !important;
+}
+
+html.light .text-gray-50 {
+  color: #f8fafc !important;
+}
+
+html.light .text-gray-100 {
+  color: #f1f5f9 !important;
+}
+
+html.light .text-gray-200 {
+  color: #e2e8f0 !important;
 }
 
 html.light .text-gray-300 {
-  color: #475569 !important;
+  color: #cbd5e1 !important;
 }
 
 html.light .text-gray-400 {
-  color: #64748b !important;
+  color: #94a3b8 !important;
 }
 
 html.light .text-gray-500 {
-  color: #94a3b8 !important;
+  color: #64748b !important;
+}
+
+html.light .text-gray-600 {
+  color: #475569 !important;
+}
+
+html.light .text-gray-700 {
+  color: #334155 !important;
+}
+
+html.light .text-gray-800 {
+  color: #1e293b !important;
+}
+
+html.light .text-gray-900 {
+  color: #0f172a !important;
+}
+
+/* Ensure headings are dark in light mode */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6 {
+  color: #0f172a !important;
+}
+
+/* Ensure body text is dark in light mode */
+html.light p,
+html.light span,
+html.light li,
+html.light label,
+html.light a:not(.gradient-text) {
+  color: #334155 !important;
+}
+
+/* Keep gradient text visible in both modes */
+html.light .gradient-text,
+html.light .gradient-text-gold {
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Dark mode - ensure white text is truly white */
+body:not(.light) .text-white {
+  color: #ffffff !important;
+}
+
+body:not(.light) h1,
+body:not(.light) h2,
+body:not(.light) h3,
+body:not(.light) h4,
+body:not(.light) h5,
+body:not(.light) h6 {
+  color: #ffffff !important;
+}
+
+body:not(.light) .text-gray-100 { color: #f3f4f6 !important; }
+body:not(.light) .text-gray-200 { color: #e5e7eb !important; }
+body:not(.light) .text-gray-300 { color: #d1d5db !important; }
+body:not(.light) .text-gray-400 { color: #9ca3af !important; }
+body:not(.light) .text-gray-500 { color: #6b7280 !important; }
+body:not(.light) .text-gray-600 { color: #4b5563 !important; }
+
+/* Keep gradient text visible in dark mode */
+body:not(.light) .gradient-text,
+body:not(.light) .gradient-text-gold {
+  -webkit-text-fill-color: transparent !important;
 }
 
 html.light .bg-\[\/5\],
