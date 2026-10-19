@@ -19,7 +19,7 @@ function App() {
       <LanguageProvider>
         <AuthProvider>
           <Router>
-            <div className="min-h-screen grid-bg noise-overlay pb-16">
+            <div className="min-h-screen grid-bg noise-overlay pb-20">
               <Navbar />
               <Routes>
                 <Route path="/" element={<Home />} />
